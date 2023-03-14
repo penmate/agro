@@ -1,5 +1,7 @@
 package com.agro.agro.controller;
 
+import com.agro.agro.dto.AuthenticationResponse;
+import com.agro.agro.dto.LoginRequest;
 import com.agro.agro.dto.RegisterRequest;
 import com.agro.agro.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -26,5 +28,10 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activated Successfully", OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
