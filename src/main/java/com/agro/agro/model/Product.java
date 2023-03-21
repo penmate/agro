@@ -16,7 +16,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
-    private String postName;
+    private String productName;
     @Lob
     private String description;
     private Instant createdDate;

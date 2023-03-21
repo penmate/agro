@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-@Configuration
 public class AgroApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AgroApplication.class, args);
