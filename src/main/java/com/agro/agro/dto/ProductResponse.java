@@ -12,5 +12,7 @@ public class ProductResponse {
     private String productName;
     private String description;
     private String userName;
+    private Integer commentCount;
+    private String duration;
 }
 
