@@ -37,8 +37,8 @@ public class ProductController {
         return status(HttpStatus.OK).body(productService.getProduct(id));
     }
 
-    @GetMapping(params = "username")
-    public ResponseEntity<List<ProductResponse>> getProductsByUsername(@RequestParam String username) {
+    @GetMapping("/by_user/{username}")
+    public ResponseEntity<List<ProductResponse>> getProductsByUsername(@PathVariable String username) {
         return status(HttpStatus.OK).body(productService.getProductsByUsername(username));
     }
 }

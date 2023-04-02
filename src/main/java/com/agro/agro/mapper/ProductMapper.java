@@ -18,6 +18,7 @@ public abstract class ProductMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "productRequest.description")
     @Mapping(target = "productName", source = "productRequest.name")
+    @Mapping(target = "user", source = "user")
     public abstract Product map(ProductRequest productRequest, User user);
 
     @Mapping(target = "id", source = "productId")

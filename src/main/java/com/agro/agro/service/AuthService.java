@@ -2,6 +2,7 @@ package com.agro.agro.service;
 
 import com.agro.agro.dto.AuthenticationResponse;
 import com.agro.agro.dto.LoginRequest;
+import com.agro.agro.dto.RefreshTokenRequest;
 import com.agro.agro.dto.RegisterRequest;
 import com.agro.agro.exceptions.SpringAgroException;
 import com.agro.agro.model.NotificationEmail;
@@ -107,5 +108,16 @@ public class AuthService {
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
+
+    public AuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        return AuthenticationResponse.builder()
+                .authenticationToken(token)
+                .refreshToken(refreshTokenRequest.getRefreshToken())
+                .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+                .username(refreshTokenRequest.getUsername())
+                .build();
     }
 }
