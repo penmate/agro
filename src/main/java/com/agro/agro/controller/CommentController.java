@@ -24,7 +24,7 @@ public class CommentController {
         return new ResponseEntity<>(CREATED);
     }
 
-    @GetMapping("/by_post/{productId}")
+    @GetMapping("/by_product/{productId}")
     public ResponseEntity<List<CommentDto>> getAllCommentForProduct(@PathVariable Long productId) {
         return ResponseEntity.status(OK).body(commentService.getAllCommentsForProduct(productId));
     }
