@@ -9,5 +9,9 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    void deleteProductByProductId(Long id);
     List<Product> findByUser(User user);
+
+    List<Product> findByProductNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(
+            String key1, String key2);
 }

@@ -3,6 +3,7 @@ package com.agro.agro.service;
 import com.agro.agro.dto.ProductRequest;
 import com.agro.agro.dto.ProductResponse;
 import com.agro.agro.exceptions.ProductNotFoundException;
+import com.agro.agro.exceptions.SpringAgroException;
 import com.agro.agro.mapper.ProductMapper;
 import com.agro.agro.model.Product;
 import com.agro.agro.model.User;
@@ -33,11 +34,18 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll()
-                .stream()
-                .map(productMapper::mapToDto)
-                .collect(toList());
+    public List<ProductResponse> getAllProducts(String searchKey) {
+        if(searchKey.equals("")) {
+            return productRepository.findAll()
+                    .stream()
+                    .map(productMapper::mapToDto)
+                    .collect(toList());
+        } else {
+            return productRepository.findByProductNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey)
+                    .stream()
+                    .map(productMapper::mapToDto)
+                    .collect(toList());
+        }
     }
 
     @Transactional(readOnly = true)
@@ -57,4 +65,7 @@ public class ProductService {
                 .collect(toList());
     }
 
+    public void deleteProduct(Long id) {
+        productRepository.deleteProductByProductId(id);
+    }
 }

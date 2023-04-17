@@ -19,6 +19,13 @@ public class Product {
     private String productName;
     @Lob
     private String description;
+    private Long price;
+    private Long discountPrice;
+    private String location;
+    private ProductCondition productCondition;
+    private Long amount;
+    private AmountType amountType;
+    private Availability availability;
     private Instant createdDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
