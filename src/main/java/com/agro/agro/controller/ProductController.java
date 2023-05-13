@@ -3,6 +3,7 @@ package com.agro.agro.controller;
 import com.agro.agro.dto.ImageDto;
 import com.agro.agro.dto.ProductRequest;
 import com.agro.agro.dto.ProductResponse;
+import com.agro.agro.dto.UserUpdateRequest;
 import com.agro.agro.model.Product;
 import com.agro.agro.service.ImageService;
 import com.agro.agro.service.ProductService;
@@ -48,6 +49,20 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Void> updateProduct(@RequestPart("product") Product productUpdate,
+                                               @RequestPart("imageRequest")MultipartFile[] images) {
+        try {
+            Product product = productService.update(productUpdate);
+            List<ImageDto> imageDtos = uploadImage(images, product.getProductId());
+            imageService.save(imageDtos);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     @GetMapping

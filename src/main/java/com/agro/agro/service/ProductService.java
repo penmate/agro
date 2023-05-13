@@ -33,6 +33,10 @@ public class ProductService {
         return productRepository.save(productMapper.map(productRequest,currentUser));
     }
 
+    public Product update(Product product) {
+        return productRepository.save(product);
+    }
+
     @Transactional(readOnly = true)
     public List<ProductResponse> getAllProducts(String searchKey) {
         if(searchKey.equals("")) {
